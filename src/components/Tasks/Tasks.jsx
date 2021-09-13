@@ -10,7 +10,6 @@ export default function Tasks() {
   return (
     <div>
       <div className="task__header">Фронтенд</div>
-      {console.log("hello")}
       <div className="task">
         <div className="checkbox">
           <input type="checkbox" id="check" />

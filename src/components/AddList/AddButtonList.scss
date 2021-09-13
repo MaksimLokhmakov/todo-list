@@ -1,0 +1,49 @@
+.add-list {
+   .todo__sidebar__list {
+      margin-bottom: 5px;
+   }
+   &__popup {
+      position: absolute;
+      width: 235px;
+      height: 150px;
+      background: #ffffff;
+      box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-content: unset;
+      .add-list__popup--closeIcon {
+         position: absolute;
+         right: -5px;
+         top: -5px;
+         cursor: pointer;
+         &:hover {
+            transform: scale(1.12);
+         }
+      }
+      &__colors {
+         margin-top: 10px;
+         padding: 0 1px;
+         display: flex;
+         justify-content: space-between;
+         .badge {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            cursor: pointer;
+            &:hover {
+               border: 3px solid #5c5c5c;
+               border-radius: 35px;
+            }
+            &.active {
+               border: 3px solid #5c5c5c;
+            }
+         }
+      }
+      .button {
+         width: 100%;
+         margin-top: 10px;
+      }
+   }
+}

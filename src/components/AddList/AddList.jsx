@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios";
+
 import List from "../List/List";
 import Badge from "../Badge";
 
@@ -6,11 +8,17 @@ import "./AddButtonList.scss";
 
 import close from "../../assets/images/closeButton.svg";
 
-const AddList = ({ colors, items, onAddLi }) => {
+const AddList = ({ colors, onAddLi }) => {
   const [showPopup, setShowPopup] = React.useState(false);
-  const [selectedColor, setSelectedColor] = React.useState(colors[0].id);
+  const [selectedColor, setSelectedColor] = React.useState();
   const [inputValue, setInputValue] = React.useState("");
-  const [nextId, setNextId] = React.useState(items.length + 1);
+  const [isLoading, setIsloading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (Array.isArray(colors)) {
+      setSelectedColor(colors[0].id);
+    }
+  }, [colors]);
 
   const onClose = () => {
     setShowPopup(false);
@@ -23,15 +31,22 @@ const AddList = ({ colors, items, onAddLi }) => {
       alert("Введите название папки");
       return;
     }
-    setNextId(nextId + 1);
-    const color = colors.filter((color) => color.id === selectedColor)[0].name;
-    onAddLi({
-      id: nextId,
-      name: inputValue,
-      colorId: selectedColor,
-      color: color,
-    });
-    onClose();
+
+    setIsloading(true);
+    axios
+      .post("/lists", { name: inputValue, colorId: selectedColor })
+      .then(({ data }) => {
+        console.log(data);
+        const color = colors.filter((color) => color.id === selectedColor)[0]
+          .name;
+        const newList = { ...data, color: { name: color }, tasks: [] };
+        onAddLi(newList);
+        onClose();
+        setIsloading(false);
+      })
+      .finally(() => {
+        setIsloading(false);
+      });
   };
 
   return (
@@ -87,7 +102,7 @@ const AddList = ({ colors, items, onAddLi }) => {
             ))}
           </div>
           <button className="button" onClick={addList}>
-            Добавить
+            {isLoading ? "Добавление..." : "Добавить"}
           </button>
         </div>
       )}

@@ -1,13 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // * ПОДКЛЮЧЕНИЕ СТИЛЕЙ
-import './scss/style.scss'
+import "./scss/style.scss";
 
 ReactDOM.render(
-  <div>
+  <Router>
     <App />
-  </div>,
-  document.getElementById('root')
+  </Router>,
+  document.getElementById("root")
 );
